@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BodotestComponent implements OnInit {
   add(arg0: number, arg1: number): any {
-    return 2;
+    return arg0 + arg1;
   }
 
   constructor() {}
