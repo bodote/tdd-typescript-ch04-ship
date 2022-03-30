@@ -15,4 +15,11 @@ export class Point {
     this.x=x;
 
   }
+
+  equals(point: Point):boolean {
+    if ((point.getX() == this.x) && (point.getY() == this.y)){
+      return true;
+    }
+    return false;
+  }
 }

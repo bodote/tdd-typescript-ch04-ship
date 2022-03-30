@@ -1,16 +1,13 @@
-import { Enumify } from 'enumify';
-
-export class Direction extends Enumify {
+export class Direction {
   static NORTH = new Direction('N', 0);
   static EAST = new Direction('E', 1);
   static SOUTH = new Direction('S', 2);
   static WEST = new Direction('W', 3);
   static NONE = new Direction('X', 4);
 
-  static _ = this.closeEnum(); // TypeScript: Direction.closeEnum()
 
   constructor(private shortname: string, private index: number) {
-    super();
+
   }
 
   static getFromShortName(sname: string): Direction {
