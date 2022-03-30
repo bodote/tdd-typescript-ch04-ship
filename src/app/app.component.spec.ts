@@ -16,10 +16,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'stryker_demo'`, () => {
+  it(`should have as title 'tdd-typescript-ch04-ship'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('stryker_demo');
+    expect(app.title).toEqual('tdd-typescript-ch04-ship');
   });
 
   xit('should render title', () => {
@@ -27,7 +27,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain(
-      'stryker_demo app is running!'
+      'tdd-typescript-ch04-ship app is running!'
     );
   });
 });

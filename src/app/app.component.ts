@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'stryker_demo';
+  title = 'tdd-typescript-ch04-ship';
 }

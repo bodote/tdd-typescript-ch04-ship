@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "stryker_demo": {
+    "tdd-typescript-ch04-ship": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/stryker_demo",
+            "outputPath": "dist/tdd-typescript-ch04-ship",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "stryker_demo:build:production"
+              "browserTarget": "tdd-typescript-ch04-ship:build:production"
             },
             "development": {
-              "browserTarget": "stryker_demo:build:development"
+              "browserTarget": "tdd-typescript-ch04-ship:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "stryker_demo:build"
+            "browserTarget": "tdd-typescript-ch04-ship:build"
           }
         },
         "test": {
@@ -102,5 +102,5 @@
       }
     }
   },
-  "defaultProject": "stryker_demo"
+  "defaultProject": "tdd-typescript-ch04-ship"
 }

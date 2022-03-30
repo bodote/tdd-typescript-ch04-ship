@@ -1,6 +1,8 @@
-import { Direction } from './direction.model';
-import { Location } from './location.model';
-import { Point } from './point.model';
+import {Direction} from './direction.model';
+import {Location} from './location.model';
+import {Point} from './point.model';
+
+
 
 describe('Location', () => {
   let max: Point;
@@ -11,11 +13,28 @@ describe('Location', () => {
   let direction: Direction = Direction.NORTH;
 
   //private List<Point> obstacles;
+  let obstacles: Point[];
+
+  function assertNotSame(expect: any, actual: any) {
+    expect(expect).not.toEqual(actual);
+  }
+  function assertEquals(expect: any, actual: any) {
+    expect(expect).toEqual(actual);
+  }
+
+  function assertTrue(expect: any) {
+    expect(expect).toBeTrue();
+  }
+
+
+  function assertFalse(expect: any) {
+    expect(expect).toBeFalse();
+  }
 
   beforeEach(async () => {
     max = new Point(50, 50);
     location = new Location(new Point(x, y), direction);
-    // obstacles = new ArrayList<Point>();
+    obstacles = [];
   });
 
   it('whenInstantiatedThenXIsStored', () => {
@@ -30,168 +49,134 @@ describe('Location', () => {
     expect(location.getDirection()).toEqual(direction);
   });
 
-  /*
-  it(' ', () => {
-    expect( ).toEqual( );
+  it('givenDirectionNWhenForwardThenYDecreases ', () => {
+    location.forward(max, obstacles);
+    expect(location.getY()).toEqual(y - 1);
   });
 
-  @Test
-  public void givenDirectionNWhenForwardThenYDecreases() {
-    location.forward(max, obstacles);
-    assertEquals(location.getY(), y - 1);
-  }
 
-  @Test
-  public void givenDirectionSWhenForwardThenYIncreases() {
+  it('givenDirectionSWhenForwardThenYIncreases ', () => {
     location.setDirection(Direction.SOUTH);
     location.forward(max, obstacles);
-    assertEquals(location.getY(), y + 1);
-  }
-
-  @Test
-  public void givenDirectionEWhenForwardThenXIncreases() {
+    expect(location.getY()).toEqual(y + 1);
+  });
+  it('givenDirectionEWhenForwardThenXIncreases ', () => {
     location.setDirection(Direction.EAST);
     location.forward(max, obstacles);
-    assertEquals(location.getX(), x + 1);
-  }
-
-  @Test
-  public void givenDirectionWWhenForwardThenXDecreases() {
+    expect(location.getX()).toEqual(x + 1);
+  });
+  it('givenDirectionWWhenForwardThenXDecreases ', () => {
     location.setDirection(Direction.WEST);
     location.forward(max, obstacles);
-    assertEquals(location.getX(), x - 1);
-  }
-
-  @Test
-  public void givenDirectionNWhenBackwardThenYIncreases() {
+    expect(location.getX()).toEqual(x - 1);
+  });
+  it('givenDirectionNWhenBackwardThenYIncreases ', () => {
     location.setDirection(Direction.NORTH);
     location.backward(max, obstacles);
-    assertEquals(location.getY(), y + 1);
-  }
-
-  @Test
-  public void givenDirectionSWhenBackwardThenYDecreases() {
+    expect(location.getY()).toEqual(y + 1);
+  });
+  it('givenDirectionSWhenBackwardThenYDecreases ', () => {
     location.setDirection(Direction.SOUTH);
     location.backward(max, obstacles);
-    assertEquals(location.getY(), y - 1);
-  }
-
-  @Test
-  public void givenDirectionEWhenBackwardThenXDecreases() {
+    expect(location.getY()).toEqual(y - 1);
+  });
+  it('givenDirectionEWhenBackwardThenXDecreases ', () => {
     location.setDirection(Direction.EAST);
     location.backward(max, obstacles);
-    assertEquals(location.getX(), x - 1);
-  }
-
-  @Test
-  public void givenDirectionWWhenBackwardThenXIncreases() {
+    expect(location.getX()).toEqual(x - 1);
+  });
+  it('givenDirectionWWhenBackwardThenXIncreases ', () => {
     location.setDirection(Direction.WEST);
     location.backward(max, obstacles);
-    assertEquals(location.getX(), x + 1);
-  }
+    expect(location.getX()).toEqual(x + 1);
+  });
 
-  @Test
-  public void whenTurnLeftThenDirectionIsSet() {
+
+  it('whenTurnLeftThenDirectionIsSet', () => {
     location.turnLeft();
     assertEquals(location.getDirection(), Direction.WEST);
-  }
+  });
 
-  @Test
-  public void whenTurnRightThenDirectionIsSet() {
+  it('whenTurnRightThenDirectionIsSet', () => {
     location.turnRight();
     assertEquals(location.getDirection(), Direction.EAST);
-  }
+  });
 
-  @Test
-  public void givenSameObjectsWhenEqualsThenTrue() {
+  it('givenSameObjectsWhenEqualsThenTrue', () => {
     assertTrue(location.equals(location));
-  }
+  });
 
-  @Test
-  public void givenDifferentObjectWhenEqualsThenFalse() {
+  it('givenDifferentObjectWhenEqualsThenFalse', () => {
     assertFalse(location.equals("bla"));
-  }
+  });
 
-  @Test
-  public void givenDifferentXWhenEqualsThenFalse() {
-    Location locationCopy = new Location(new Point(999, location.getY()), location.getDirection());
+  it('givenDifferentXWhenEqualsThenFalse', () => {
+    let locationCopy:Location = new Location(new Point(999, location.getY()), location.getDirection());
     assertFalse(location.equals(locationCopy));
-  }
+  });
 
-  @Test
-  public void givenDifferentYWhenEqualsThenFalse() {
-    Location locationCopy = new Location(new Point(location.getX(), 999), location.getDirection());
+  it('givenDifferentYWhenEqualsThenFalse', () => {
+    let locationCopy:Location = new Location(new Point(location.getX(), 999), location.getDirection());
     assertFalse(location.equals(locationCopy));
-  }
+  });
 
-  @Test
-  public void givenDifferentDirectionWhenEqualsThenFalse() {
-    Location locationCopy = new Location(location.getPoint(), Direction.SOUTH);
+  it('givenDifferentDirectionWhenEqualsThenFalse', () => {
+    let locationCopy:Location = new Location(location.getPoint(), Direction.SOUTH);
     assertFalse(location.equals(locationCopy));
-  }
+  });
 
-  @Test
-  public void givenSameXYDirectionWhenEqualsThenTrue() {
-    Location locationCopy = new Location(location.getPoint(), location.getDirection());
+  it('givenSameXYDirectionWhenEqualsThenTrue', () => {
+    let locationCopy:Location = new Location(location.getPoint(), location.getDirection());
     assertTrue(location.equals(locationCopy));
-  }
+  });
 
-  @Test
-  public void whenCopyThenDifferentObject() {
-    Location copy = location.copy();
+  it('whenCopyThenDifferentObject', () => {
+    let copy:Location = location.copy();
     assertNotSame(location, copy);
-  }
+  });
 
-  @Test
-  public void whenCopyThenEquals() {
-    Location copy = location.copy();
+  it('whenCopyThenEquals', () => {
+    let copy:Location = location.copy();
     assertEquals(copy, location);
-  }
+  });
 
-  @Test
-  public void givenDirectionEAndXEqualsMaxXWhenForwardThen1() {
+  it('givenDirectionEAndXEqualsMaxXWhenForwardThen1', () => {
     location.setDirection(Direction.EAST);
     location.getPoint().setX(max.getX());
     location.forward(max, obstacles);
     assertEquals(location.getX(), 1);
-  }
+  });
 
-  @Test
-  public void givenDirectionWAndXEquals1WhenForwardThenMaxX() {
+  it('givenDirectionWAndXEquals1WhenForwardThenMaxX', () => {
     location.setDirection(Direction.WEST);
     location.getPoint().setX(1);
     location.forward(max, obstacles);
     assertEquals(location.getX(), max.getX());
-  }
+  });
 
-  @Test
-  public void givenDirectionNAndYEquals1WhenForwardThenMaxY() {
+  it('givenDirectionNAndYEquals1WhenForwardThenMaxY', () => {
     location.setDirection(Direction.NORTH);
     location.getPoint().setY(1);
     location.forward(max, obstacles);
     assertEquals(location.getY(), max.getY());
-  }
+  });
 
-  @Test
-  public void givenDirectionSAndYEqualsMaxYWhenForwardThen1() {
+  it('givenDirectionSAndYEqualsMaxYWhenForwardThen1', () => {
     location.setDirection(Direction.SOUTH);
     location.getPoint().setY(max.getY());
     location.forward(max, obstacles);
     assertEquals(location.getY(), 1);
-  }
+  });
 
-  @Test
-  public void givenObstacleWhenForwardThenReturnFalse() {
+  it('givenObstacleWhenForwardThenReturnFalse', () => {
     location.setDirection(Direction.EAST);
-    obstacles.add(new Point(x + 1, y));
+    obstacles.push(new Point(x + 1, y));
     assertFalse(location.forward(max, obstacles));
-  }
+  });
 
-  @Test
-  public void givenObstacleWhenBackwardThenReturnFalse() {
+  it('givenObstacleWhenBackwardThenReturnFalse', () => {
     location.setDirection(Direction.EAST);
-    obstacles.add(new Point(x - 1, y));
+    obstacles.push(new Point(x - 1, y));
     assertFalse(location.backward(max, obstacles));
-  }
-  */
+  });
 });

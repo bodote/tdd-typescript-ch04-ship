@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/stryker_demo'),
+      dir: require('path').join(__dirname, './coverage/tdd-typescript-ch04-ship'),
       subdir: '.',
       reporters: [
         { type: 'html' },

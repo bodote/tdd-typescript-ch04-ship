@@ -6,4 +6,13 @@ export class Point {
     return this.x;
   }
   constructor(private x: number, private y: number) {}
+
+  setY(y: number) {
+    this.y=y;
+  }
+
+  setX(x: number) {
+    this.x=x;
+
+  }
 }
