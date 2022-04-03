@@ -1,7 +1,14 @@
 import {Direction} from './direction.model';
 import {Point} from './point.model';
 
+enum ForwardBackward {
+  Forward = 1,
+  Backward = -1,
+}
 export class Location {
+
+
+
   constructor(private point: Point, private direction: Direction) {
   }
 
@@ -17,49 +24,53 @@ export class Location {
     return this.point.getX();
   }
 
-  private move(current: number,  max: number,down_right:boolean) {
-    if (down_right) {
-      if (current >= max)
-        return 1;
-      return current + 1
-    } else {
-      if (current <= 1)
-        return max;
-      return current - 1
-    }
-
+  forward(max: Point, obstacles: Point[]):boolean{
+    return this.move (max, obstacles,ForwardBackward.Forward);
   }
-
-  forward(max: Point, obstacles: Point[]): boolean {
+  backward(max: Point, obstacles: Point[]):boolean{
+    return this.move (max, obstacles,ForwardBackward.Backward);
+  }
+  private warp(coord:number, max:number, forward:number):   number {
+    if (forward==ForwardBackward.Forward){
+      if (coord>max){
+        return  1 ;
+      }
+    } else {
+      if (coord<1){
+        return max;
+      }
+    }
+    return coord; //no change
+  }
+  move (max: Point, obstacles: Point[],forwBackw:ForwardBackward): boolean {
+    let newY:number;
+    let newX:number;
     switch (this.direction) {
       case Direction.NORTH:
-        let newY = this.move(this.point.getY(), max.getY(),false)
-        if (this.checkObstracles(new Point(this.point.getX(),newY),obstacles)){
-          this.point.setY(newY);
-          return true;
-        } else {
-          return false;
-        }
       case Direction.SOUTH:
-        this.point.setY(this.move(this.point.getY(), max.getY(),true));
-        return true;
+        newX = this.point.getX();
+        newY = this.point.getY()+(this.direction.forwareBackward*forwBackw);// +1 or -1
+        newY = this.warp(newY,max.getY(),this.direction.forwareBackward*forwBackw);
+        break;
       case Direction.WEST:
-        this.point.setX(this.move(this.point.getX(), max.getX(),false));
-        return true;
       case Direction.EAST:
-        let newX = this.move(this.point.getX(), max.getX(),true);
-        if (this.checkObstracles(new Point(newX,this.point.getY()),obstacles)) {
-          this.point.setX(newX);
-          return true;
-        } else {
-          return false;
-        }
+        newY = this.point.getY()
+        newX = this.point.getX()+(this.direction.forwareBackward*forwBackw);// +1 or -1
+        newX = this.warp(newX,max.getX(),this.direction.forwareBackward*forwBackw);
+        break;
       default:
         throw new Error("undefined forward with direction " + this.direction.toString());
     }
+    let newPoint = new Point(newX,newY)
+    if (this.checkObstacles(newPoint,obstacles)) {
+      this.point= newPoint;
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  private checkObstracles(testPoint:Point, obstacles: Point[]):boolean {
+  private checkObstacles(testPoint:Point, obstacles: Point[]):boolean {
     for (let obs of obstacles) {
       if (testPoint.equals(obs)) return false
     }
@@ -69,30 +80,6 @@ export class Location {
   setDirection(direction: Direction) {
     this.direction = direction;
 
-  }
-
-  backward(max: Point, obstacles: Point[]) {
-    switch (this.direction) {
-      case Direction.NORTH:
-        this.point.setY(this.point.getY() + 1);
-        return;
-      case Direction.SOUTH:
-        this.point.setY(this.point.getY() -1 );
-        return;
-      case Direction.WEST:
-        this.point.setX(this.point.getX() + 1);
-        return;
-      case Direction.EAST:
-        let newX = this.move(this.point.getX(), max.getX(),false);
-        if (this.checkObstracles(new Point(newX,this.point.getY()),obstacles)) {
-          this.point.setX(newX);
-          return true;
-        } else {
-          return false;
-        }
-      default:
-        throw new Error("undefined forward with direction " + this.direction.toString());
-    }
   }
 
   turnLeft() {

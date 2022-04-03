@@ -10,14 +10,14 @@ describe('Direction', () => {
     let direction: Direction = Direction.getFromShortName('W');
     expect(direction).toEqual(Direction.WEST);
   });
-  it('whenGetFromShortNameWThenReturnDirectionE', () => {
+  it('whenGetFromShortNameEThenReturnDirectionE', () => {
     let direction: Direction = Direction.getFromShortName('E');
     expect(direction).toEqual(Direction.EAST);
   });
 
-  it('whenGetFromShortNameWThenReturnDirectionW', () => {
-    let direction: Direction = Direction.getFromShortName('W');
-    expect(direction).toEqual(Direction.WEST);
+  it('whenGetFromShortNameSThenReturnDirectionS', () => {
+    let direction: Direction = Direction.getFromShortName('S');
+    expect(direction).toEqual(Direction.SOUTH);
   });
 
   it('whenGetFromShortNameBThenReturnNone', () => {

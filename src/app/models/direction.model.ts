@@ -1,12 +1,13 @@
+
 export class Direction {
-  static NORTH = new Direction('N', 0);
-  static EAST = new Direction('E', 1);
-  static SOUTH = new Direction('S', 2);
-  static WEST = new Direction('W', 3);
-  static NONE = new Direction('X', 4);
+  static NORTH = new Direction('N', 0,-1);
+  static EAST = new Direction('E',  1,+1);
+  static SOUTH = new Direction('S', 2,+1);
+  static WEST = new Direction('W',  3,-1);
+  static NONE = new Direction('X',  4,0);
 
 
-  constructor(private shortname: string, private index: number) {
+  constructor(private shortname: string, private index: number, public forwareBackward:number) {
 
   }
 
@@ -14,11 +15,11 @@ export class Direction {
     switch (sname) {
       case Direction.NORTH.shortname:
         return Direction.NORTH;
-      case 'W':
+      case Direction.WEST.shortname:
         return Direction.WEST;
-      case 'E':
+      case Direction.EAST.shortname:
         return Direction.EAST;
-      case 'S':
+      case Direction.SOUTH.shortname:
         return Direction.SOUTH;
       default:
         return Direction.NONE;
