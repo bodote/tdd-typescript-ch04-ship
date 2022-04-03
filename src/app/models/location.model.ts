@@ -6,9 +6,6 @@ enum ForwardBackward {
   Backward = -1,
 }
 export class Location {
-
-
-
   constructor(private point: Point, private direction: Direction) {
   }
 
@@ -79,7 +76,6 @@ export class Location {
 
   setDirection(direction: Direction) {
     this.direction = direction;
-
   }
 
   turnLeft() {
